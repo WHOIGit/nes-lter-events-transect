@@ -18,6 +18,7 @@ library(ediutilities)
 library(here)
 library(lubridate)
 library(stringr)
+library(dplyr)
 ```
 
 Read example data table
