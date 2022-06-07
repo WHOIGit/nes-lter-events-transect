@@ -24,6 +24,8 @@ library(dplyr)
 Read example data table
 
 ```{r}
+package_name = 'nes-lter-events-transect'
+
 data_table <- read.csv(here('nes_lter_events_raw.csv'))
 data_table$dateTime8601 <-ymd_hms(data_table$dateTime8601)
 data_table$Cast <- str_replace(data_table$Cast,'\\.0','')
@@ -43,14 +45,16 @@ data_table <- data_table %>% merge(cpid)
 ooi_instruments <- str_split('CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL', ', ')[[1]]
 data_table <- data_table %>% filter(!Instrument %in% ooi_instruments)
 
-write.table(data_table, 'nes_lter_events.csv', row.names = FALSE, sep = ",", qmethod = c("escape", "double"))
+product_table_filename <- paste0(package_name, '.csv')
+
+write.table(data_table, here(product_table_filename), row.names = FALSE, sep = ",", qmethod = c("escape", "double"))
 ```
 
 Read the Excel metadata template and generate text templates used by
 EMLassemblyline
 
 ```{r}
-excel_to_template(here('nes-lter-minimal-info'), 'nes_lter_events', rights='CC0')
+excel_to_template(here('nes-lter-minimal-info'), package_name, rights='CC0')
 ```
 Generate the package and insert the parent project node into the resulting EML
 
@@ -59,7 +63,7 @@ pkg_id <- 'knb-lter-nes.20.1'
 
 make_eml(here(),
          dataset.title='Demonstration of minimal EDI package',
-         data.table='nes_lter_events.csv',
+         data.table=product_table_filename,
          data.table.description='Example NES-LTER data',
          data.table.name = 'Subset of NES-LTER nutrient data',
          temporal.coverage = temporal_coverage(data_table$dateTime8601),
