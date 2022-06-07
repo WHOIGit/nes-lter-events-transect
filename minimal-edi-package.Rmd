@@ -35,6 +35,8 @@ data_table$Station <- str_replace(data_table$Station, '\\nName:.*', '')
 
 data_table$Comment <- str_replace_all(data_table$Comment, ',', ';')
 
+cpid <- read.csv(here('cruise_project_id.csv'))
+
 write.table(data_table, 'nes_lter_events.csv', row.names = FALSE, sep = ",", qmethod = c("escape", "double"))
 ```
 
