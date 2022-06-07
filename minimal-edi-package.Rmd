@@ -35,7 +35,13 @@ data_table$Station <- str_replace(data_table$Station, '\\nName:.*', '')
 
 data_table$Comment <- str_replace_all(data_table$Comment, ',', ';')
 
+# add project_id column
 cpid <- read.csv(here('cruise_project_id.csv'))
+data_table <- data_table %>% merge(cpid)
+
+# exclude OOI instruments
+ooi_instruments <- str_split('CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL', ', ')[[1]]
+data_table <- data_table %>% filter(!Instrument %in% ooi_instruments)
 
 write.table(data_table, 'nes_lter_events.csv', row.names = FALSE, sep = ",", qmethod = c("escape", "double"))
 ```
