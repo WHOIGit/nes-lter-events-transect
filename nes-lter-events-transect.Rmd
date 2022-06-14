@@ -21,7 +21,7 @@ library(stringr)
 library(dplyr)
 ```
 
-Read example data table
+Read and clean raw data table
 
 ```{r}
 package_name = 'nes-lter-events-transect'
