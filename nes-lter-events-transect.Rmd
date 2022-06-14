@@ -1,7 +1,7 @@
 ---
-title: "Minimal EDI package generated using EMLassemblyline and ediutilities"
+title: "NES-LTER compiled event log packaging workflow"
 author: "Joe Futrelle"
-date: "2022-01-24"
+date: "2022-06-14"
 output: html_notebook
 ---
 
@@ -62,10 +62,10 @@ Generate the package and insert the parent project node into the resulting EML
 pkg_id <- 'knb-lter-nes.20.1'
 
 make_eml(here(),
-         dataset.title='Demonstration of minimal EDI package',
+         dataset.title='Event logs from Northeast U.S. Shelf NES-LTER Transect cruises, ongoing since 2017',
          data.table=product_table_filename,
-         data.table.description='Example NES-LTER data',
-         data.table.name = 'Subset of NES-LTER nutrient data',
+         data.table.description='Concatenated table of events recorded on seasonal NES-LTER Transect cruises',
+         data.table.name = 'nes-lter-events-transect',
          temporal.coverage = temporal_coverage(data_table$dateTime8601),
          geographic.description = "NES-LTER Transect",
          geographic.coordinates = geographic_coordinates(data_table$Latitude, data_table$Longitude),
