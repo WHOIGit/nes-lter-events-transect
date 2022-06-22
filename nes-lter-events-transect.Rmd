@@ -62,7 +62,7 @@ Generate the package and insert the parent project node into the resulting EML
 pkg_id <- 'knb-lter-nes.20.1'
 
 make_eml(here(),
-         dataset.title='Event logs from Northeast U.S. Shelf NES-LTER Transect cruises, ongoing since 2017',
+         dataset.title='Event logs from Northeast U.S. Shelf Long Term Ecological Research (NES-LTER) Transect cruises, ongoing since 2017',
          data.table=product_table_filename,
          data.table.description='Concatenated table of events recorded on seasonal NES-LTER Transect cruises',
          data.table.name = 'nes-lter-events-transect',
