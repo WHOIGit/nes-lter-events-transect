@@ -54,12 +54,12 @@ Read the Excel metadata template and generate text templates used by
 EMLassemblyline
 
 ```{r}
-excel_to_template(here('nes-lter-events-transect-info'), package_name, rights='CC0', other_info=TRUE)
+excel_to_template(here('nes-lter-events-transect-info'), package_name, rights='CC0')
 ```
 Generate the package and insert the parent project node into the resulting EML
 
 ```{r}
-pkg_id <- 'knb-lter-nes.20.1'
+pkg_id <- 'knb-lter-nes.20.2'
 
 make_eml(here(),
          dataset.title='Event logs from Northeast U.S. Shelf Long Term Ecological Research (NES-LTER) Transect cruises, ongoing since 2017',
