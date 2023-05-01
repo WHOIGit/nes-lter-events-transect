@@ -19,27 +19,52 @@ library(here)
 library(lubridate)
 library(stringr)
 library(dplyr)
+library(httr)
 ```
 
-Read and clean raw data table
+Create and clean event log data table
 
 ```{r}
 package_name = 'nes-lter-events-transect'
+event_log_filename <- 'nes-lter-event-log.csv'
 
-data_table <- read.csv(here('nes_lter_events_raw.csv'))
-data_table$dateTime8601 <-ymd_hms(data_table$dateTime8601)
-data_table$Cast <- str_replace(data_table$Cast,'\\.0','')
-data_table <- data_table %>% select(-c(Unnamed..8, Unnamed..9, Unnamed..10, Unnamed..11, Unnamed..12, Unnamed..13))
+# Obtain all available event logs from the REST API for all cruises
+cruises <- content(GET('https://nes-lter-data.whoi.edu/api/cruises'), as = "parsed")$cruises
 
-data_table$Station <- str_replace(data_table$Station, 'Cast*\\n[0-9]+    ', '')
-data_table$Station <- str_replace(data_table$Station, '\\n.*', '')
-data_table$Station <- str_replace(data_table$Station, '\\nName:.*', '')
+dfs <- list()
 
-data_table$Comment <- str_replace_all(data_table$Comment, ',', ';')
+for (cruise in cruises) {
+  r <- GET(paste0('https://nes-lter-data.whoi.edu/api/events/', cruise, '.csv'))
+  if (status_code(r) != 200) {
+    cat(paste('error reading events for', cruise, '\n'))
+    next
+  }
+  elog_csv <- rawToChar(content(r, as = "raw"))
+  df <- read.csv(text = elog_csv, colClasses = c(Cast = "character"))
+  cat(paste('read', nrow(df), 'events for', cruise, '\n'))
+  df <- df %>% 
+    mutate(Cruise = cruise) %>%
+    select(Cruise, everything())  # move "Cruise" column to the first position
+  dfs[[cruise]] <- df
+}
+
+df <- bind_rows(dfs)
+
+df$Comment <- str_replace_all(df$Comment, ',', ';')
+df$dateTime8601 <-ymd_hms(df$dateTime8601)  
+
+cat(paste('concatenated', nrow(df), 'events from', length(dfs), 'cruises\n'))
+
+# EML csv validator needs date time without quotes
+write.csv(df, event_log_filename, quote = FALSE, row.names = FALSE)
+
+# clean event data
+df$Cast <- str_replace(df$Cast,'\\.0','')
+df <- df %>% select(-c(Unnamed..8, Unnamed..9, Unnamed..10, Unnamed..11, Unnamed..12, Unnamed..13))
 
 # add project_id column
 cpid <- read.csv(here('cruise_project_id.csv'))
-data_table <- data_table %>% merge(cpid)
+data_table <- df %>% merge(cpid)
 
 # exclude OOI instruments
 ooi_instruments <- str_split('CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL', ', ')[[1]]
@@ -47,25 +72,36 @@ data_table <- data_table %>% filter(!Instrument %in% ooi_instruments)
 
 product_table_filename <- paste0(package_name, '.csv')
 
-write.table(data_table, here(product_table_filename), row.names = FALSE, sep = ",", qmethod = c("escape", "double"))
+write.table(data_table, here(product_table_filename), quote = FALSE, row.names = FALSE, sep = ",", qmethod = c("escape", "double"))
 ```
 
 Read the Excel metadata template and generate text templates used by
 EMLassemblyline
 
 ```{r}
-excel_to_template(here('nes-lter-events-transect-info'), package_name, rights='CC0')
+excel_template <- 'nes-lter-events-transect-info.xlsx'
+sheet_to_tsv(excel_template, 'ColumnHeadersEvents','attributes_nes-lter-events-transect.txt')  
+sheet_to_tsv(excel_template, 'ColumnHeadersEventLog','attributes_nes-lter-event-log.txt')
+sheet_to_tsv(excel_template, 'CategoricalVariables','catvars_nes-lter-event-transect.txt')
+sheet_to_tsv(excel_template, 'Personnel', 'personnel.txt')
+sheet_to_tsv(excel_template, 'Keywords', 'keywords.txt')
+
+EMLassemblyline::template_core_metadata(path=here(), license='CC0')
+
 ```
 Generate the package and insert the parent project node into the resulting EML
 
 ```{r}
+
+datatables <- c(product_table_filename, event_log_filename)
+
 pkg_id <- 'knb-lter-nes.20.2'
 
 make_eml(here(),
          dataset.title='Event logs from Northeast U.S. Shelf Long Term Ecological Research (NES-LTER) Transect cruises, ongoing since 2017',
-         data.table=product_table_filename,
-         data.table.description='Concatenated table of events recorded on seasonal NES-LTER Transect cruises',
-         data.table.name = 'nes-lter-events-transect',
+         data.table= datatables, 
+         data.table.description= c('Concatenated table of events recorded on seasonal NES-LTER Transect cruises', 'Cruise event log metadata'),
+         data.table.name = c('nes-lter-events-transect', 'nes-lter-event-log'),
          temporal.coverage = temporal_coverage(data_table$dateTime8601),
          geographic.description = "NES-LTER Transect",
          geographic.coordinates = geographic_coordinates(data_table$Latitude, data_table$Longitude),

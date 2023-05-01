@@ -45,7 +45,7 @@
       <electronicMailAddress>lter-nes-info@whoi.edu</electronicMailAddress>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2023-04-04</pubDate>
+    <pubDate>2023-05-01</pubDate>
     <abstract>
       <para>This package provides a concatenated table of events recorded on seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological Research (NES-LTER). Events were recorded onboard with Rolling Deck to Repository (R2R) event logger (elog) software. Event listings include date, time, ship’s position, instrument, and action for use in physical sample cataloging and post-cruise data integration. Cruises include winter and summer cruises dedicated to NES-LTER, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and additional fall cruises.</para>
     </abstract>
@@ -76,7 +76,7 @@
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
           <westBoundingCoordinate>-71.4225</westBoundingCoordinate>
-          <eastBoundingCoordinate>-70.345</eastBoundingCoordinate>
+          <eastBoundingCoordinate>-70.218</eastBoundingCoordinate>
           <northBoundingCoordinate>41.5869</northBoundingCoordinate>
           <southBoundingCoordinate>39.58</southBoundingCoordinate>
         </boundingCoordinates>
@@ -109,7 +109,7 @@ Events were recorded onboard with Rolling Deck to Repository (R2R) event logger 
 NES-LTER maintains a RESTful Application Programming Interface (REST API) to provide a set of consistent URLs that, when fetched, returns data in machine-readable form that may be used by application code. For the events product provided by the NES-LTER REST API, a subset of columns is retained from the original elogs, including date, time, ship’s position, instrument, and action (parsing code available at: https://github.com/WHOIGit/nes-lter-ims/blob/master/neslter/parsing/elog.py). For some but not all cruises we corrected and/or added events. Blanks are retained (not filled with missing value code) in the station, cast, and comment columns. Event logs are available per-cruise with the following URL pattern, using cruise en627 as example: https://nes-lter-data.whoi.edu/api/events/en627.csv.</para>
           <para># Data assembly
 The concatenated data product is built from event logs output by the NES-LTER REST API.
-In this first version of this data package, we used a script in Python to acquire all available elogs from the REST API and concatenate into a file “nes_lter_events_raw.csv” that is used in the data assembly script in R (file and code available at: https://github.com/WHOIGit/nes-lter-events-transect). Cleaning of the concatenated table included formatting datetime, excluding extraneous columns, and excluding instruments specific to Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude events listed with instrument “Other” that are pertinent to OOI-led cruises. We added a column project_id to indicate LTER-dedicated or partner cruises.</para>
+In this first version of this data package, we used a script in Python to acquire all available elogs from the REST API and concatenate into a file “nes_lter_event_log.csv” that is used in the data assembly script in R (file and code available at: https://github.com/WHOIGit/nes-lter-events-transect). Cleaning of the concatenated table included formatting datetime, excluding extraneous columns, and excluding instruments specific to Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude events listed with instrument “Other” that are pertinent to OOI-led cruises. We added a column project_id to indicate LTER-dedicated or partner cruises.</para>
           <para># Quality Assurance
 We assured that the geographic and temporal coverage of the concatenated data product were within expected ranges. For corrections made or still needed for the NES-LTER REST API product, see README per-cruise with the following URL pattern, using cruise en627 as example: https://nes-lter-data.whoi.edu/api/events/en627/README. We did not yet regularize the names of LTER-specific instruments, for example “Bongo” and “Bongo net” are equivalent. For cruises prior to ar28a in spring 2018, we had not yet established controlled vocabulary terms related to IFCB, nor had we distinguished the instrument "IFCB continuous" from underway science seawater with action "IFCB discrete". For cruises en608, ar28b, and ar31c, the instrument IFCB refers to IFCB continuous. For cruises ar24a and ar24c, the instrument IFCB109 represents IFCB continuous, and the instrument IFCB102 represents an IFCB analyzing discrete samples.
 </para>
@@ -244,8 +244,8 @@ We assured that the geographic and temporal coverage of the concatenated data pr
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">369590</size>
-        <authentication method="MD5">75803f698dca856364f311edcf6354d9</authentication>
+        <size unit="bytes">327176</size>
+        <authentication method="MD5">ac900398865ab324d1d435541e6fc687</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -392,7 +392,7 @@ We assured that the geographic and temporal coverage of the concatenated data pr
             </ratio>
           </measurementScale>
           <missingValueCode>
-            <code>NaN</code>
+            <code>NA</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>
@@ -409,13 +409,13 @@ We assured that the geographic and temporal coverage of the concatenated data pr
                 <numberType>real</numberType>
                 <bounds>
                   <minimum exclusive="false">-71.4225</minimum>
-                  <maximum exclusive="false">-70.345</maximum>
+                  <maximum exclusive="false">-70.218</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
           </measurementScale>
           <missingValueCode>
-            <code>NaN</code>
+            <code>NA</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>
@@ -467,7 +467,316 @@ We assured that the geographic and temporal coverage of the concatenated data pr
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>3307</numberOfRecords>
+      <numberOfRecords>3371</numberOfRecords>
+    </dataTable>
+    <dataTable>
+      <entityName>nes-lter-event-log</entityName>
+      <entityDescription>Cruise event log metadata</entityDescription>
+      <physical>
+        <objectName>nes-lter-event-log.csv</objectName>
+        <size unit="bytes">526941</size>
+        <authentication method="MD5">284371c6e7dd39bfbd1691555599e81e</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\r\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>Cruise</attributeName>
+          <attributeDefinition>Identifier for research cruise generally including abbreviation for research vessel and voyage number</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Identifier for research cruise generally including abbreviation for research vessel and voyage number</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Message.ID</attributeName>
+          <attributeDefinition>R2R event log message ID if applicable</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>R2R event log message ID if applicable</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>dateTime8601</attributeName>
+          <attributeDefinition>Date and time in UTC of event</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD hh:mm:ss</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Instrument</attributeName>
+          <attributeDefinition>Instrument associated with event if applicable</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Instrument associated with event if applicable</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Action</attributeName>
+          <attributeDefinition>Action taken for this event</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Action taken for this event</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Station</attributeName>
+          <attributeDefinition>Named location of event if applicable</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Named location of event if applicable</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Cast</attributeName>
+          <attributeDefinition>Cast number count for Instrument associated with event if applicable</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Cast number count for Instrument associated with event if applicable</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Latitude</attributeName>
+          <attributeDefinition>Ship's latitude at event time</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">39.58</minimum>
+                  <maximum exclusive="false">41.5869</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Longitude</attributeName>
+          <attributeDefinition>Ship's longitude at event time</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">-71.4225</minimum>
+                  <maximum exclusive="false">-70.218</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Comment</attributeName>
+          <attributeDefinition>Additional information as free-form text</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Additional information as free-form text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Unnamed..8</attributeName>
+          <attributeDefinition>Unnamed 8</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Unnamed 8</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Unnamed..9</attributeName>
+          <attributeDefinition>Unnamed 9</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Unnamed 9</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Unnamed..10</attributeName>
+          <attributeDefinition>Unnamed 10</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Unnamed 10</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Unnamed..11</attributeName>
+          <attributeDefinition>Unnamed 11</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Unnamed 11</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Unnamed..12</attributeName>
+          <attributeDefinition>Unnamed 12</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Unnamed 12</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Unnamed..13</attributeName>
+          <attributeDefinition>Unnamed 13</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>Unnamed 13</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NaN</code>
+            <codeExplanation>Missing value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>4694</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>
