@@ -45,7 +45,7 @@
       <electronicMailAddress>lter-nes-info@whoi.edu</electronicMailAddress>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2023-04-04</pubDate>
+    <pubDate>2025-01-07</pubDate>
     <abstract>
       <para>This package provides a concatenated table of events recorded on seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological Research (NES-LTER). Events were recorded onboard with Rolling Deck to Repository (R2R) event logger (elog) software. Event listings include date, time, ship’s position, instrument, and action for use in physical sample cataloging and post-cruise data integration. Cruises include winter and summer cruises dedicated to NES-LTER, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and additional fall cruises.</para>
     </abstract>
@@ -75,10 +75,10 @@
       <geographicCoverage>
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
-          <westBoundingCoordinate>-71.4225</westBoundingCoordinate>
-          <eastBoundingCoordinate>-70.345</eastBoundingCoordinate>
-          <northBoundingCoordinate>41.5869</northBoundingCoordinate>
-          <southBoundingCoordinate>39.58</southBoundingCoordinate>
+          <westBoundingCoordinate>-75.337</westBoundingCoordinate>
+          <eastBoundingCoordinate>-70.218</eastBoundingCoordinate>
+          <northBoundingCoordinate>41.612</northBoundingCoordinate>
+          <southBoundingCoordinate>35.724</southBoundingCoordinate>
         </boundingCoordinates>
       </geographicCoverage>
       <temporalCoverage>
@@ -87,7 +87,7 @@
             <calendarDate>2017-09-02</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2022-02-21</calendarDate>
+            <calendarDate>2024-11-11</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
@@ -109,7 +109,7 @@ Events were recorded onboard with Rolling Deck to Repository (R2R) event logger 
 NES-LTER maintains a RESTful Application Programming Interface (REST API) to provide a set of consistent URLs that, when fetched, returns data in machine-readable form that may be used by application code. For the events product provided by the NES-LTER REST API, a subset of columns is retained from the original elogs, including date, time, ship’s position, instrument, and action (parsing code available at: https://github.com/WHOIGit/nes-lter-ims/blob/master/neslter/parsing/elog.py). For some but not all cruises we corrected and/or added events. Blanks are retained (not filled with missing value code) in the station, cast, and comment columns. Event logs are available per-cruise with the following URL pattern, using cruise en627 as example: https://nes-lter-data.whoi.edu/api/events/en627.csv.</para>
           <para># Data assembly
 The concatenated data product is built from event logs output by the NES-LTER REST API.
-In this first version of this data package, we used a script in Python to acquire all available elogs from the REST API and concatenate into a file “nes_lter_events_raw.csv” that is used in the data assembly script in R (file and code available at: https://github.com/WHOIGit/nes-lter-events-transect). Cleaning of the concatenated table included formatting datetime, excluding extraneous columns, and excluding instruments specific to Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude events listed with instrument “Other” that are pertinent to OOI-led cruises. We added a column project_id to indicate LTER-dedicated or partner cruises.</para>
+In this first version of this data package, we used a script in Python to acquire all available elogs from the REST API and concatenate into a file “nes_lter_events_raw.csv” that is used in the data assembly script in R (file and code available at: https://github.com/WHOIGit/nes-lter-events-transect). In subsequent versions of this data package, we acquire all available elogs in R using the REST API end point, https://nes-lter-data.whoi.edu/api/events. Cleaning of the concatenated table included formatting datetime, excluding extraneous columns, and excluding instruments specific to Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude events listed with instrument “Other” that are pertinent to OOI-led cruises. We added a column project_id to indicate LTER-dedicated or partner cruises.</para>
           <para># Quality Assurance
 We assured that the geographic and temporal coverage of the concatenated data product were within expected ranges. For corrections made or still needed for the NES-LTER REST API product, see README per-cruise with the following URL pattern, using cruise en627 as example: https://nes-lter-data.whoi.edu/api/events/en627/README. We did not yet regularize the names of LTER-specific instruments, for example “Bongo” and “Bongo net” are equivalent. For cruises prior to ar28a in spring 2018, we had not yet established controlled vocabulary terms related to IFCB, nor had we distinguished the instrument "IFCB continuous" from underway science seawater with action "IFCB discrete". For cruises en608, ar28b, and ar31c, the instrument IFCB refers to IFCB continuous. For cruises ar24a and ar24c, the instrument IFCB109 represents IFCB continuous, and the instrument IFCB102 represents an IFCB analyzing discrete samples.
 </para>
@@ -244,8 +244,8 @@ We assured that the geographic and temporal coverage of the concatenated data pr
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">369590</size>
-        <authentication method="MD5">75803f698dca856364f311edcf6354d9</authentication>
+        <size unit="bytes">582730</size>
+        <authentication method="MD5">ec9d9ca38a471145aa7386e0290bd8d1</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -271,23 +271,24 @@ We assured that the geographic and temporal coverage of the concatenated data pr
               </nonNumericDomain>
             </nominal>
           </measurementScale>
-          <missingValueCode>
-            <code>NaN</code>
-            <codeExplanation>Missing value</codeExplanation>
-          </missingValueCode>
         </attribute>
         <attribute>
           <attributeName>Message.ID</attributeName>
           <attributeDefinition>R2R event log message ID if applicable</attributeDefinition>
-          <storageType>string</storageType>
+          <storageType>float</storageType>
           <measurementScale>
-            <nominal>
-              <nonNumericDomain>
-                <textDomain>
-                  <definition>R2R event log message ID if applicable</definition>
-                </textDomain>
-              </nonNumericDomain>
-            </nominal>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>natural</numberType>
+                <bounds>
+                  <minimum exclusive="false">1</minimum>
+                  <maximum exclusive="false">286</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
           </measurementScale>
           <missingValueCode>
             <code>NaN</code>
@@ -305,7 +306,7 @@ We assured that the geographic and temporal coverage of the concatenated data pr
             </dateTime>
           </measurementScale>
           <missingValueCode>
-            <code>NaN</code>
+            <code>NA</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>
@@ -322,10 +323,6 @@ We assured that the geographic and temporal coverage of the concatenated data pr
               </nonNumericDomain>
             </nominal>
           </measurementScale>
-          <missingValueCode>
-            <code>NaN</code>
-            <codeExplanation>Missing value</codeExplanation>
-          </missingValueCode>
         </attribute>
         <attribute>
           <attributeName>Action</attributeName>
@@ -340,10 +337,6 @@ We assured that the geographic and temporal coverage of the concatenated data pr
               </nonNumericDomain>
             </nominal>
           </measurementScale>
-          <missingValueCode>
-            <code>NaN</code>
-            <codeExplanation>Missing value</codeExplanation>
-          </missingValueCode>
         </attribute>
         <attribute>
           <attributeName>Station</attributeName>
@@ -385,14 +378,14 @@ We assured that the geographic and temporal coverage of the concatenated data pr
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">39.58</minimum>
-                  <maximum exclusive="false">41.5869</maximum>
+                  <minimum exclusive="false">35.724</minimum>
+                  <maximum exclusive="false">41.612</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
           </measurementScale>
           <missingValueCode>
-            <code>NaN</code>
+            <code>NA</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>
@@ -408,14 +401,14 @@ We assured that the geographic and temporal coverage of the concatenated data pr
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">-71.4225</minimum>
-                  <maximum exclusive="false">-70.345</maximum>
+                  <minimum exclusive="false">-75.337</minimum>
+                  <maximum exclusive="false">-70.218</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
           </measurementScale>
           <missingValueCode>
-            <code>NaN</code>
+            <code>NA</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>
@@ -467,7 +460,7 @@ We assured that the geographic and temporal coverage of the concatenated data pr
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>3307</numberOfRecords>
+      <numberOfRecords>5825</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>
