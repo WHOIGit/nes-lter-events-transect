@@ -28,7 +28,6 @@ Construct and clean raw data table
 
 ```{r}
 package_name = 'nes-lter-events-transect'
-#data_table <- read.csv(here('nes_lter_events_raw.csv'))
 cruise_list <- api_list_cruises()
 all_events <- NA
 print(cruise_list)
@@ -79,6 +78,10 @@ data_table$Station[is.na(data_table$Station)] <- ""
 data_table$Cast[is.na(data_table$Cast)] <- ""
 data_table$Comment[is.na(data_table$Comment)] <- ""
 data_table$Message.ID[is.na(data_table$Message.ID)] <- "NaN"
+data_table$dateTime8601 <- as.character(data_table$dateTime8601)
+data_table$dateTime8601[is.na(data_table$dateTime8601)] <- ""
+data_table$Latitude[is.na(data_table$Latitude)] <- "NaN"
+data_table$Longitude[is.na(data_table$Longitude)] <- "NaN"
 
 product_table_filename <- paste0(package_name, '.csv')
 
@@ -90,6 +93,15 @@ EMLassemblyline
 
 ```{r}
 excel_to_template(here('nes-lter-events-transect-info'), package_name, rights='CC0')
+
+# Data Coverage
+lat <- as.numeric(ifelse(data_table$Latitude == "NaN", NA, data_table$Latitude))
+lon <- as.numeric(ifelse(data_table$Longitude == "NaN", NA, data_table$Longitude))
+north <- round(max(lat, na.rm = TRUE), 5)
+south <- round(min(lat, na.rm = TRUE), 5)
+east <- round(max(lon, na.rm = TRUE), 5)
+west <- round(min(lon, na.rm = TRUE), 5)
+
 ```
 Generate the package and insert the parent project node into the resulting EML
 
@@ -103,7 +115,7 @@ make_eml(here(),
          data.table.name = 'nes-lter-events-transect',
          temporal.coverage = temporal_coverage(data_table$dateTime8601),
          geographic.description = "NES-LTER Transect",
-         geographic.coordinates = geographic_coordinates(data_table$Latitude, data_table$Longitude),
+         geographic.coordinates = c(north, east, south, west),
          maintenance.description = "ongoing",
          user.id = "NES",
          user.domain = "LTER",

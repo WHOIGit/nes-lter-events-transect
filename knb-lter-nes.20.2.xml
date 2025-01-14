@@ -26,6 +26,16 @@
       <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
       <userId directory="https://orcid.org">https://orcid.org/0000-0002-4591-2842</userId>
     </creator>
+    <creator>
+      <individualName>
+        <givenName>E.</givenName>
+        <givenName>Taylor</givenName>
+        <surName>Crockford</surName>
+      </individualName>
+      <organizationName>Northeast U.S. Shelf LTER</organizationName>
+      <electronicMailAddress>ecrockford@whoi.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0002-2122-0462</userId>
+    </creator>
     <associatedParty>
       <individualName>
         <givenName>Joe</givenName>
@@ -45,7 +55,7 @@
       <electronicMailAddress>lter-nes-info@whoi.edu</electronicMailAddress>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2025-01-07</pubDate>
+    <pubDate>2025-01-13</pubDate>
     <abstract>
       <para>This package provides a concatenated table of events recorded on seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological Research (NES-LTER). Events were recorded onboard with Rolling Deck to Repository (R2R) event logger (elog) software. Event listings include date, time, ship’s position, instrument, and action for use in physical sample cataloging and post-cruise data integration. Cruises include winter and summer cruises dedicated to NES-LTER, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and additional fall cruises.</para>
     </abstract>
@@ -244,8 +254,8 @@ We assured that the geographic and temporal coverage of the concatenated data pr
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">582730</size>
-        <authentication method="MD5">ec9d9ca38a471145aa7386e0290bd8d1</authentication>
+        <size unit="bytes">582720</size>
+        <authentication method="MD5">29f1b80ed2a6756f3f05860cea498073</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -385,7 +395,7 @@ We assured that the geographic and temporal coverage of the concatenated data pr
             </ratio>
           </measurementScale>
           <missingValueCode>
-            <code>NA</code>
+            <code>NaN</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>
@@ -408,7 +418,7 @@ We assured that the geographic and temporal coverage of the concatenated data pr
             </ratio>
           </measurementScale>
           <missingValueCode>
-            <code>NA</code>
+            <code>NaN</code>
             <codeExplanation>Missing value</codeExplanation>
           </missingValueCode>
         </attribute>

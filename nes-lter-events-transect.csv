@@ -3742,7 +3742,7 @@ en687,151,2022-08-01 14:21:20,Incubation C13,start,L8,016,40.155,-70.7782,,LTER
 en687,152,2022-08-01 14:37:02,Incubation Grazing,start,L8,16,40.1476,-70.7979,,LTER
 en687,153,2022-08-01 15:18:59,Incubation Respiration O2,start,L8,016,40.0888,-70.887,,LTER
 en687,154,2022-08-01 15:23:06,Sting Ray,deploy towed,L9,tow004,40.0919,-70.8875,,LTER
-en687,231,2022-08-01 15:26:00,Underway Science seawater impeller,chl discrete,,,NA,NA,,LTER
+en687,231,2022-08-01 15:26:00,Underway Science seawater impeller,chl discrete,,,NaN,NaN,,LTER
 en687,156,2022-08-01 16:55:24,Incubation C13,stop,L11,010,40.1879,-70.8866,,LTER
 en687,183,2022-08-01 17:29:05,Underway Science seawater diaphragm pump,TOI discrete,,,40.2249,-70.883,toi bottle 613,LTER
 en687,157,2022-08-01 17:41:04,Incubation Grazing,stop,L11,010,40.2381,-70.8813,,LTER
@@ -5818,9 +5818,9 @@ ae2426,166,2024-11-11 14:29:00,Underway Science seawater diaphragm pump,stop,,,4
 ae2426,167,2024-11-11 14:29:10,Underway Science seawater impeller,stop,,,41.4775,-70.7027,end of cruise shutdown,LTER
 ae2426,168,2024-11-11 14:45:00,UHDAS for both ADCPs,stop,,,41.4876,-70.687,end of cruise shutdown; approximate GPS time,LTER
 ae2426,169,2024-11-11 15:00:00,Ship,endCruise,,,41.4876,-70.687,,LTER
-at46,149,NA,Incubation Grazing,start,L3,16,40.096,-70.884,,LTER
-en715,28,NA,Wx Balloon,deploy,,,40.8083,-70.8837,,LTER
-en715,90,NA,Wx Balloon,deploy,,,40.3869,-70.8831,,LTER
-en715,121,NA,Wx Balloon,deploy,,,40.3639,-70.8053,,LTER
-en720,256,NA,MeteorologicalSensor,other,,,40.833,-70.8836,pilot house relative humidity sensor dropped to near zero - bad data; time approximate,LTER
-en720,257,NA,MeteorologicalSensor,other,,,40.2714,-70.8832,pilot house relative humidity sensor starting to read ok data again; time approximate,LTER
+at46,149,,Incubation Grazing,start,L3,16,40.096,-70.884,,LTER
+en715,28,,Wx Balloon,deploy,,,40.8083,-70.8837,,LTER
+en715,90,,Wx Balloon,deploy,,,40.3869,-70.8831,,LTER
+en715,121,,Wx Balloon,deploy,,,40.3639,-70.8053,,LTER
+en720,256,,MeteorologicalSensor,other,,,40.833,-70.8836,pilot house relative humidity sensor dropped to near zero - bad data; time approximate,LTER
+en720,257,,MeteorologicalSensor,other,,,40.2714,-70.8832,pilot house relative humidity sensor starting to read ok data again; time approximate,LTER
