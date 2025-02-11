@@ -57,7 +57,16 @@
     </associatedParty>
     <pubDate>2025-02-11</pubDate>
     <abstract>
-      <para>This package provides a concatenated table of events recorded on seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological Research (NES-LTER). Events were recorded onboard with Rolling Deck to Repository (R2R) event logger (elog) software. Event listings include date, time, ship’s position, instrument, and action for use in physical sample cataloging and post-cruise data integration. Cruises include winter and summer cruises dedicated to NES-LTER, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and additional fall cruises.</para>
+      <para>This package provides a concatenated table of events recorded on&#13;
+seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological&#13;
+Research (NES-LTER). Events were recorded onboard with Rolling Deck to&#13;
+Repository (R2R) event logger (elog) software. Event listings include&#13;
+date, time, ship's position, instrument, and action for use in physical&#13;
+sample cataloging and post-cruise data integration. Cruises include&#13;
+winter and summer cruises dedicated to NES-LTER, spring and fall cruises&#13;
+in collaboration with the Ocean Observatories Initiative (OOI), and&#13;
+additional fall cruises.&#13;
+</para>
     </abstract>
     <keywordSet>
       <keyword>Disturbance</keyword>
@@ -75,7 +84,11 @@
       <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
     </keywordSet>
     <additionalInfo>
-      <para>We’d like to thank and acknowledge all the Chief Scientists and shipboard technicians for recording these elogs on cruises funded by multiple projects, data managers at the Rolling Deck to Repository (R2R), and the R2R elog software team.</para>
+      <para>We'd like to thank and acknowledge all the Chief Scientists and&#13;
+shipboard technicians for recording these elogs on cruises funded by&#13;
+multiple projects, data managers at the Rolling Deck to Repository&#13;
+(R2R), and the R2R elog software team.&#13;
+</para>
     </additionalInfo>
     <intellectualRights>
       <para>This data package is released to the "public domain" under Creative Commons CC0 1.0 "No Rights Reserved" (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available "as is" and with no warranty of accuracy or fitness for use. The creators of this data package and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. Periodic updates of this data package may be available from the website. Thank you.
@@ -113,21 +126,78 @@
     <methods>
       <methodStep>
         <description>
-          <para># Original event logs
-Events were recorded onboard with Rolling Deck to Repository (R2R) event logger (elog) software described at: https://www.rvdata.us/about/event-log. Prior to each cruise an NES-LTER Information Manager works with shipboard technicians and the R2R elog software team to configure the elog with instruments and actions from a controlled vocabulary. The event log is started when the ship leaves port, and concluded upon arrival. During the cruise the events are added manually by shipboard technicians and science party. Contents of the event log are reviewed regularly by an on-board Information Manager during a cruise to ensure completeness and accuracy. The elog is often available online during the cruise so that an on-shore Information Manager can review contents as well. The original event logs (elogs) are available per cruise in R2R with Public Domain Mark 1.0 license: https://www.rvdata.us/data.</para>
-          <para># Event listings output by NES-LTER REST API
-NES-LTER maintains a RESTful Application Programming Interface (REST API) to provide a set of consistent URLs that, when fetched, returns data in machine-readable form that may be used by application code. For the events product provided by the NES-LTER REST API, a subset of columns is retained from the original elogs, including date, time, ship’s position, instrument, and action (parsing code available at: https://github.com/WHOIGit/nes-lter-ims/blob/master/neslter/parsing/elog.py). For some but not all cruises we corrected and/or added events. Blanks are retained (not filled with missing value code) in the station, cast, and comment columns. Event logs are available per-cruise with the following URL pattern, using cruise en627 as example: https://nes-lter-data.whoi.edu/api/events/en627.csv.</para>
-          <para># Data assembly
-The concatenated data product is built from event logs output by the NES-LTER REST API.
-In this first version of this data package, we used a script in Python to acquire all available elogs from the REST API and concatenate into a file “nes_lter_events_raw.csv” that is used in the data assembly script in R (file and code available at: https://github.com/WHOIGit/nes-lter-events-transect). In subsequent versions of this data package, we acquire all available elogs in R using the REST API end point, https://nes-lter-data.whoi.edu/api/events. Cleaning of the concatenated table included formatting datetime, excluding extraneous columns, and excluding instruments specific to Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude events listed with instrument “Other” that are pertinent to OOI-led cruises. We added a column project_id to indicate LTER-dedicated or partner cruises.</para>
-          <para># Quality Assurance
-We assured that the geographic and temporal coverage of the concatenated data product were within expected ranges. For corrections made or still needed for the NES-LTER REST API product, see README per-cruise with the following URL pattern, using cruise en627 as example: https://nes-lter-data.whoi.edu/api/events/en627/README. We did not yet regularize the names of LTER-specific instruments, for example “Bongo” and “Bongo net” are equivalent. For cruises prior to ar28a in spring 2018, we had not yet established controlled vocabulary terms related to IFCB, nor had we distinguished the instrument "IFCB continuous" from underway science seawater with action "IFCB discrete". For cruises en608, ar28b, and ar31c, the instrument IFCB refers to IFCB continuous. For cruises ar24a and ar24c, the instrument IFCB109 represents IFCB continuous, and the instrument IFCB102 represents an IFCB analyzing discrete samples.
-</para>
+          <markdown># Original event logs&#13;
+&#13;
+Events were recorded onboard with Rolling Deck to Repository (R2R) event&#13;
+logger (elog) software described at:&#13;
+https://www.rvdata.us/about/event-log. Prior to each cruise an NES-LTER&#13;
+Information Manager works with shipboard technicians and the R2R elog&#13;
+software team to configure the elog with instruments and actions from a&#13;
+controlled vocabulary. The event log is started when the ship leaves&#13;
+port, and concluded upon arrival. During the cruise the events are added&#13;
+manually by shipboard technicians and science party. Contents of the&#13;
+event log are reviewed regularly by an on-board Information Manager&#13;
+during a cruise to ensure completeness and accuracy. The elog is often&#13;
+available online during the cruise so that an on-shore Information&#13;
+Manager can review contents as well. The original event logs (elogs) are&#13;
+available per cruise in R2R with Public Domain Mark 1.0 license:&#13;
+https://www.rvdata.us/data.&#13;
+&#13;
+# Event listings output by NES-LTER REST API&#13;
+&#13;
+NES-LTER maintains a RESTful Application Programming Interface (REST&#13;
+API) to provide a set of consistent URLs that, when fetched, returns&#13;
+data in machine-readable form that may be used by application code. For&#13;
+the events product provided by the NES-LTER REST API, a subset of&#13;
+columns is retained from the original elogs, including date, time,&#13;
+ship's position, instrument, and action (parsing code available at:&#13;
+https://github.com/WHOIGit/nes-lter-ims/blob/master/neslter/parsing/elog.py).&#13;
+For some but not all cruises we corrected and/or added events. Blanks&#13;
+are retained (not filled with missing value code) in the station, cast,&#13;
+and comment columns. Event logs are available per-cruise with the&#13;
+following URL pattern, using cruise en627 as example:&#13;
+https://nes-lter-data.whoi.edu/api/events/en627.csv.&#13;
+&#13;
+# Data assembly&#13;
+&#13;
+The concatenated data product is built from event logs output by the&#13;
+NES-LTER REST API. In this first version of this data package, we used a&#13;
+script in Python to acquire all available elogs from the REST API and&#13;
+concatenate into a file "nes_lter_events_raw.csv" that is used in the&#13;
+data assembly script in R (file and code available at:&#13;
+https://github.com/WHOIGit/nes-lter-events-transect). In subsequent&#13;
+versions of this data package, we acquire all available elogs in R using&#13;
+the REST API end point, https://nes-lter-data.whoi.edu/api/events.&#13;
+Cleaning of the concatenated table included formatting datetime,&#13;
+excluding extraneous columns, and excluding instruments specific to&#13;
+Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV,&#13;
+Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude&#13;
+events listed with instrument "Other" that are pertinent to OOI-led&#13;
+cruises. We added a column project_id to indicate LTER-dedicated or&#13;
+partner cruises.&#13;
+&#13;
+# Quality Assurance&#13;
+&#13;
+We assured that the geographic and temporal coverage of the concatenated&#13;
+data product were within expected ranges. For corrections made or still&#13;
+needed for the NES-LTER REST API product, see README per-cruise with the&#13;
+following URL pattern, using cruise en627 as example:&#13;
+https://nes-lter-data.whoi.edu/api/events/en627/README. We did not yet&#13;
+regularize the names of LTER-specific instruments, for example "Bongo"&#13;
+and "Bongo net" are equivalent. For cruises prior to ar28a in spring&#13;
+2018, we had not yet established controlled vocabulary terms related to&#13;
+IFCB, nor had we distinguished the instrument "IFCB continuous" from&#13;
+underway science seawater with action "IFCB discrete". For cruises&#13;
+en608, ar28b, and ar31c, the instrument IFCB refers to IFCB continuous.&#13;
+For cruises ar24a and ar24c, the instrument IFCB109 represents IFCB&#13;
+continuous, and the instrument IFCB102 represents an IFCB analyzing&#13;
+discrete samples.&#13;
+</markdown>
         </description>
       </methodStep>
     </methods>
     <project>
-      <title>Northeast U.S. Shelf LTER</title>
+      <title>LTER: Scales of Variability in Ecosystem Dynamics and Production on the Changing Northeast U.S. Shelf (NES II)</title>
       <personnel>
         <individualName>
           <givenName>Heidi</givenName>
@@ -136,15 +206,6 @@ We assured that the geographic and temporal coverage of the concatenated data pr
         <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0002-4591-2842</userId>
         <role>Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Stace</givenName>
-          <surName>Beaulieu</surName>
-        </individualName>
-        <electronicMailAddress>sbeaulieu@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0002-2609-5453</userId>
-        <role>Co-Principal Investigator</role>
       </personnel>
       <personnel>
         <individualName>
@@ -162,15 +223,6 @@ We assured that the geographic and temporal coverage of the concatenated data pr
         </individualName>
         <electronicMailAddress>rji@whoi.edu</electronicMailAddress>
         <userId directory="https://orcid.org">https://orcid.org/0000-0002-8839-5427</userId>
-        <role>Co-Principal Investigator</role>
-      </personnel>
-      <personnel>
-        <individualName>
-          <givenName>Steven</givenName>
-          <surName>Lentz</surName>
-        </individualName>
-        <electronicMailAddress>slentz@whoi.edu</electronicMailAddress>
-        <userId directory="https://orcid.org">https://orcid.org/0000-0001-7498-0281</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
       <personnel>
@@ -211,6 +263,15 @@ We assured that the geographic and temporal coverage of the concatenated data pr
       </personnel>
       <personnel>
         <individualName>
+          <givenName>Mei</givenName>
+          <surName>Sato</surName>
+        </individualName>
+        <electronicMailAddress>msato@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0003-4860-2476</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
+      <personnel>
+        <individualName>
           <givenName>Rachel</givenName>
           <surName>Stanley</surName>
         </individualName>
@@ -218,23 +279,33 @@ We assured that the geographic and temporal coverage of the concatenated data pr
         <userId directory="https://orcid.org">https://orcid.org/0000-0003-4860-2476</userId>
         <role>Co-Principal Investigator</role>
       </personnel>
+      <personnel>
+        <individualName>
+          <givenName>Weifeng</givenName>
+          <surName>Zhang</surName>
+        </individualName>
+        <electronicMailAddress>wzhang@whoi.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0002-2819-1780</userId>
+        <role>Co-Principal Investigator</role>
+      </personnel>
       <abstract>
         <para>The Northeast U.S. Shelf (NES) Long-Term Ecological Research (LTER) project integrates observations, experiments, and models to understand and predict how planktonic food webs are changing, and how those changes impact the productivity of higher trophic levels. The NES-LTER is co-located with the Northeast U.S. Continental Shelf Large Marine Ecosystem, spanning the Middle Atlantic Bight and Gulf of Maine. Our focal cross-shelf transect extends about 150 km southward from Martha’s Vineyard, MA, to just beyond the shelf break. Our overarching question is: How is climate change impacting the pelagic NES ecosystem and, in particular, affecting the relationship between compositional (e.g., species diversity and size structure) and aggregate (e.g., rates of primary production, and transfer of energy to important forage fish species) variability?</para>
       </abstract>
       <funding>
-        <para>NSF Award OCE-1655686</para>
+        <para>NSF Award OCE-2322676</para>
       </funding>
       <relatedProject>
-        <title>Ocean Observatories Initiative</title>
+        <title>LTER: Linking Pelagic Community Structure with Ecosystem Dynamics and Production Regimes on the Changing Northeast US Shelf (NES I)</title>
         <personnel>
           <individualName>
-            <givenName>John</givenName>
-            <surName>Trowbridge</surName>
+            <givenName>Heidi</givenName>
+            <surName>Sosik</surName>
           </individualName>
-          <electronicMailAddress>jtrowbridge@whoi.edu</electronicMailAddress>
+          <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0002-4591-2842</userId>
           <role>Principal Investigator</role>
         </personnel>
-        <funding>NSF Award OCE-1743430</funding>
+        <funding>NSF Award OCE-1655686</funding>
       </relatedProject>
       <relatedProject>
         <title>RAPID: Collaborative Research: Autumn transition in plankton ecology during an ocean heatwave on the Northeast U.S. Shelf</title>
@@ -244,9 +315,27 @@ We assured that the geographic and temporal coverage of the concatenated data pr
             <surName>Sosik</surName>
           </individualName>
           <electronicMailAddress>hsosik@whoi.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">0000-0002-4591-2842</userId>
           <role>Principal Investigator</role>
         </personnel>
-        <funding>NSF Award OCE-2102434</funding>
+        <award>
+          <funderName>National Science Foundation</funderName>
+          <awardNumber>NSF Award OCE-210243</awardNumber>
+          <title>RAPID: Collaborative Research: Autumn transition in plankton ecology during an ocean heatwave on the Northeast U.S. Shelf</title>
+        </award>
+      </relatedProject>
+      <relatedProject>
+        <title>Management and Operation of the Ocean Observatories Initiative (OOI)</title>
+        <personnel>
+          <individualName>
+            <givenName>James</givenName>
+            <surName>Edson</surName>
+          </individualName>
+          <electronicMailAddress>jedson@whoi.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0002-8777-031X</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>NSF Award OCE-1743430</funding>
       </relatedProject>
     </project>
     <dataTable>
