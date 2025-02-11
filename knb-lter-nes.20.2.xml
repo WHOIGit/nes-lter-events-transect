@@ -55,7 +55,7 @@
       <electronicMailAddress>lter-nes-info@whoi.edu</electronicMailAddress>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2025-01-13</pubDate>
+    <pubDate>2025-02-11</pubDate>
     <abstract>
       <para>This package provides a concatenated table of events recorded on seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological Research (NES-LTER). Events were recorded onboard with Rolling Deck to Repository (R2R) event logger (elog) software. Event listings include date, time, ship’s position, instrument, and action for use in physical sample cataloging and post-cruise data integration. Cruises include winter and summer cruises dedicated to NES-LTER, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and additional fall cruises.</para>
     </abstract>
@@ -97,7 +97,7 @@
             <calendarDate>2017-09-02</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2024-11-11</calendarDate>
+            <calendarDate>2025-01-28</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
@@ -254,8 +254,8 @@ We assured that the geographic and temporal coverage of the concatenated data pr
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">582720</size>
-        <authentication method="MD5">29f1b80ed2a6756f3f05860cea498073</authentication>
+        <size unit="bytes">603066</size>
+        <authentication method="MD5">e058990cbb7c7c47be0276c059bb4f2a</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -470,7 +470,7 @@ We assured that the geographic and temporal coverage of the concatenated data pr
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>5825</numberOfRecords>
+      <numberOfRecords>6010</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>

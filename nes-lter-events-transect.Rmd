@@ -83,6 +83,60 @@ data_table$dateTime8601[is.na(data_table$dateTime8601)] <- ""
 data_table$Latitude[is.na(data_table$Latitude)] <- "NaN"
 data_table$Longitude[is.na(data_table$Longitude)] <- "NaN"
 
+# Regularize Instrument names
+data_table$Instrument[data_table$Instrument == "Bongo"] <- "Bongo Net"
+data_table$Instrument[data_table$Instrument == "Attune"] <- "Attune Flow Cytometer"
+data_table$Instrument[data_table$Instrument == "Cytomeoter"] <- "Cytometer"
+data_table$Instrument[data_table$Instrument == "EK80"] <- "EK80 broadband"
+data_table$Instrument[data_table$Instrument == "Incubation"] <- "Incubation Grazing"
+data_table$Instrument[data_table$Instrument == "Incubation O2"] <- "Incubation Respiration O2"
+data_table$Instrument[data_table$Instrument == "RingNet"] <- "Ring Net"
+data_table$Instrument[data_table$Instrument == "SUNA V2"] <- "SUNAV2"
+data_table$Instrument[data_table$Instrument == "Thermosalinograph SBE45"] <- "Thermosalinographs on underway impeller "
+data_table$Instrument[data_table$Instrument == "trans10"] <- "Transmissometer 10cm"
+data_table$Instrument[data_table$Instrument == "Transmissometer 10"] <- "Transmissometer 10cm"
+data_table$Instrument[data_table$Instrument == "trans25"] <- "Transmissometer 25cm"
+data_table$Instrument[data_table$Instrument == "Underway diaphram pump"] <- "Underway Science seawater diaphragm pump"
+data_table$Instrument[data_table$Instrument == "Underway Science Seawater Diaphragm Pump"] <- "Underway Science seawater diaphragm pump"
+data_table$Instrument[data_table$Instrument == "SSW"] <- "Underway Science seawater diaphragm pump"
+data_table$Instrument[data_table$Instrument == "Underway Impeller"] <- "Underway Science seawater impeller"
+data_table$Instrument[data_table$Instrument == "IFCB_continuous"] <- "IFCB continuous"
+data_table$Instrument[data_table$Instrument == "RingNetIFCB Continuous"] <- "IFCB continuous"
+data_table$Instrument[data_table$Instrument == "IFCB Continuous"] <- "IFCB continuous"
+data_table$Instrument[data_table$Instrument == "IFCB 109"] <- "IFCB continuous"
+
+# Fix IFCB 102 entries
+# ar24b - remove all of IFCB102 except the action of bucket
+data_table <- data_table %>%
+  filter(!(Cruise == "ar24b" & Instrument == "IFCB 102" & Action != "bucket"))
+# ar24a - remove IFCB102 with action start/station 'LTER Station 1'
+data_table <- data_table %>%
+  filter(!(Cruise == "ar24a" & Instrument == "IFCB 102" & 
+           Action == "start" & Station == "LTER Station 1"))
+# ar24a & ar24b - IFCB102 with action 'bucket' (change Instrument to 
+# BucketSample; change action to 'start'; append comment with '; IFCB discrete')
+data_table <- data_table %>%
+  mutate(
+    Instrument = ifelse(Cruise %in% c("ar24a", "ar24b") & Instrument == "IFCB 102" & Action == "bucket", 
+                        "BucketSample", Instrument),
+    Action = ifelse(Cruise %in% c("ar24a", "ar24b") & Instrument == "BucketSample" & Action == "bucket", 
+                    "start", Action),
+    Comment = ifelse(Cruise %in% c("ar24a", "ar24b") & Instrument == "BucketSample" & Action == "start", 
+                     paste0(Comment, "; IFCB discrete"), Comment)
+ )
+# ar24a - IFCB102 with action 'underway' change Instrument to Underway Science
+# seawater diaphragm pump; change action to 'IFCB_discrete'
+data_table <- data_table %>%
+mutate(
+  Instrument = ifelse(Cruise == "ar24a" & Instrument == "IFCB 102" & Action =="underway", "Underway Science seawater diaphragm pump", Instrument),
+  Action = ifelse(Cruise == "ar24a" & Instrument == "Underway Science seawater diaphragm pump" & Action == "underway", 
+              "IFCB_discrete", Action)
+)
+# ar28a - IFCB continuous (all of IFCB102)
+data_table <- data_table %>%
+mutate(Instrument = ifelse(Cruise == "ar28a" & Instrument == "IFCB 102", 
+                             "IFCB continuous", Instrument))
+
 product_table_filename <- paste0(package_name, '.csv')
 
 write.table(data_table, here(product_table_filename), row.names = FALSE, sep = ",", qmethod = "escape", quote = FALSE)
