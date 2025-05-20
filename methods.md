@@ -6,7 +6,7 @@ https://www.rvdata.us/about/event-log. Prior to each cruise an NES-LTER
 Information Manager works with shipboard technicians and the R2R elog
 software team to configure the elog with instruments and actions from a
 controlled vocabulary. The event log is started when the ship leaves
-port, and concluded upon arrival. During the cruise the events are added
+port, and concluded upon arrival. During the cruise events are added
 manually by shipboard technicians and science party. Contents of the
 event log are reviewed regularly by an on-board Information Manager
 during a cruise to ensure completeness and accuracy. The elog is often
@@ -33,7 +33,7 @@ https://nes-lter-data.whoi.edu/api/events/en627.csv.
 # Data assembly
 
 The concatenated data product is built from event logs output by the
-NES-LTER REST API. In this first version of this data package, we used a
+NES-LTER REST API. In this version of the data package, we used a
 script in Python to acquire all available elogs from the REST API and
 concatenate into a file "nes_lter_events_raw.csv" that is used in the
 data assembly script in R (file and code available at:
@@ -46,7 +46,7 @@ Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV,
 Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude
 events listed with instrument "Other" that are pertinent to OOI-led
 cruises. We added a column project_id to indicate LTER-dedicated or
-partner cruises.
+partner cruises. We standardized of instrument namess across all events to enable streamlines searching across all cruises. We also regularized vocabulary used for underway science seawater, including actions for those events.
 
 # Quality Assurance
 
@@ -54,13 +54,4 @@ We assured that the geographic and temporal coverage of the concatenated
 data product were within expected ranges. For corrections made or still
 needed for the NES-LTER REST API product, see README per-cruise with the
 following URL pattern, using cruise en627 as example:
-https://nes-lter-data.whoi.edu/api/events/en627/README. We did not yet
-regularize the names of LTER-specific instruments, for example "Bongo"
-and "Bongo net" are equivalent. For cruises prior to ar28a in spring
-2018, we had not yet established controlled vocabulary terms related to
-IFCB, nor had we distinguished the instrument "IFCB continuous" from
-underway science seawater with action "IFCB discrete". For cruises
-en608, ar28b, and ar31c, the instrument IFCB refers to IFCB continuous.
-For cruises ar24a and ar24c, the instrument IFCB109 represents IFCB
-continuous, and the instrument IFCB102 represents an IFCB analyzing
-discrete samples.
+https://nes-lter-data.whoi.edu/api/events/en627/README. 
