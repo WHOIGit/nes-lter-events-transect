@@ -55,17 +55,26 @@
       <electronicMailAddress>lter-nes-info@whoi.edu</electronicMailAddress>
       <role>metadataProvider</role>
     </associatedParty>
-    <pubDate>2025-02-11</pubDate>
+    <associatedParty>
+      <individualName>
+        <givenName>Joanne</givenName>
+        <surName>Koch</surName>
+      </individualName>
+      <organizationName>Northeast U.S. Shelf LTER</organizationName>
+      <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
+      <role>softwareDeveloper</role>
+    </associatedParty>
+    <pubDate>2025-05-21</pubDate>
     <abstract>
-      <para>This package provides a concatenated table of events recorded on&#13;
-seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological&#13;
-Research (NES-LTER). Events were recorded onboard with Rolling Deck to&#13;
-Repository (R2R) event logger (elog) software. Event listings include&#13;
-date, time, ship's position, instrument, and action for use in physical&#13;
-sample cataloging and post-cruise data integration. Cruises include&#13;
-winter and summer cruises dedicated to NES-LTER, spring and fall cruises&#13;
-in collaboration with the Ocean Observatories Initiative (OOI), and&#13;
-additional fall cruises.&#13;
+      <para>This package provides a concatenated table of events recorded on
+seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological
+Research (NES-LTER). Events were recorded onboard with Rolling Deck to
+Repository (R2R) event logger (elog) software. Event listings include
+date, time, ship's position, instrument, and action for use in physical
+sample cataloging and post-cruise data integration. Cruises are seasonal and include
+voyages dedicated to NES-LTER, spring and fall cruises through 2021
+in collaboration with the Ocean Observatories Initiative (OOI), and
+additional fall cruises.
 </para>
     </abstract>
     <keywordSet>
@@ -84,10 +93,9 @@ additional fall cruises.&#13;
       <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
     </keywordSet>
     <additionalInfo>
-      <para>We'd like to thank and acknowledge all the Chief Scientists and&#13;
-shipboard technicians for recording these elogs on cruises funded by&#13;
-multiple projects, data managers at the Rolling Deck to Repository&#13;
-(R2R), and the R2R elog software team.&#13;
+      <para>We'd like to thank and acknowledge all the Chief Scientists and shipboard technicians for recording these elogs on cruises funded by multiple projects, data managers at the Rolling Deck to Repository (R2R), and the R2R elog software team.</para>
+      <para>﻿This data package includes events from MIT-WHOI Joint Program (JP) cruises funded by the WHOI Academic Programs Office, with Chief Scientists Glen Gawarkiewicz (AR22 and AR38) and Joel Llopiz (AR32), and from many more cruises on R/V Neil Armstrong for the Ocean Observatories Initiative (OOI) funded by the National Science Foundation under Cooperative Agreement No. 1743430. 
+ 
 </para>
     </additionalInfo>
     <intellectualRights>
@@ -98,10 +106,10 @@ multiple projects, data managers at the Rolling Deck to Repository&#13;
       <geographicCoverage>
         <geographicDescription>NES-LTER Transect</geographicDescription>
         <boundingCoordinates>
-          <westBoundingCoordinate>-75.337</westBoundingCoordinate>
+          <westBoundingCoordinate>-75.341</westBoundingCoordinate>
           <eastBoundingCoordinate>-70.218</eastBoundingCoordinate>
           <northBoundingCoordinate>41.612</northBoundingCoordinate>
-          <southBoundingCoordinate>35.724</southBoundingCoordinate>
+          <southBoundingCoordinate>35.721</southBoundingCoordinate>
         </boundingCoordinates>
       </geographicCoverage>
       <temporalCoverage>
@@ -110,7 +118,7 @@ multiple projects, data managers at the Rolling Deck to Repository&#13;
             <calendarDate>2017-09-02</calendarDate>
           </beginDate>
           <endDate>
-            <calendarDate>2025-01-28</calendarDate>
+            <calendarDate>2025-04-29</calendarDate>
           </endDate>
         </rangeOfDates>
       </temporalCoverage>
@@ -126,73 +134,71 @@ multiple projects, data managers at the Rolling Deck to Repository&#13;
     <methods>
       <methodStep>
         <description>
-          <markdown># Original event logs&#13;
-&#13;
-Events were recorded onboard with Rolling Deck to Repository (R2R) event&#13;
-logger (elog) software described at:&#13;
-https://www.rvdata.us/about/event-log. Prior to each cruise an NES-LTER&#13;
-Information Manager works with shipboard technicians and the R2R elog&#13;
-software team to configure the elog with instruments and actions from a&#13;
-controlled vocabulary. The event log is started when the ship leaves&#13;
-port, and concluded upon arrival. During the cruise the events are added&#13;
-manually by shipboard technicians and science party. Contents of the&#13;
-event log are reviewed regularly by an on-board Information Manager&#13;
-during a cruise to ensure completeness and accuracy. The elog is often&#13;
-available online during the cruise so that an on-shore Information&#13;
-Manager can review contents as well. The original event logs (elogs) are&#13;
-available per cruise in R2R with Public Domain Mark 1.0 license:&#13;
-https://www.rvdata.us/data.&#13;
-&#13;
-# Event listings output by NES-LTER REST API&#13;
-&#13;
-NES-LTER maintains a RESTful Application Programming Interface (REST&#13;
-API) to provide a set of consistent URLs that, when fetched, returns&#13;
-data in machine-readable form that may be used by application code. For&#13;
-the events product provided by the NES-LTER REST API, a subset of&#13;
-columns is retained from the original elogs, including date, time,&#13;
-ship's position, instrument, and action (parsing code available at:&#13;
-https://github.com/WHOIGit/nes-lter-ims/blob/master/neslter/parsing/elog.py).&#13;
-For some but not all cruises we corrected and/or added events. Blanks&#13;
-are retained (not filled with missing value code) in the station, cast,&#13;
-and comment columns. Event logs are available per-cruise with the&#13;
-following URL pattern, using cruise en627 as example:&#13;
-https://nes-lter-data.whoi.edu/api/events/en627.csv.&#13;
-&#13;
-# Data assembly&#13;
-&#13;
-The concatenated data product is built from event logs output by the&#13;
-NES-LTER REST API. In this first version of this data package, we used a&#13;
-script in Python to acquire all available elogs from the REST API and&#13;
-concatenate into a file "nes_lter_events_raw.csv" that is used in the&#13;
-data assembly script in R (file and code available at:&#13;
-https://github.com/WHOIGit/nes-lter-events-transect). In subsequent&#13;
-versions of this data package, we acquire all available elogs in R using&#13;
-the REST API end point, https://nes-lter-data.whoi.edu/api/events.&#13;
-Cleaning of the concatenated table included formatting datetime,&#13;
-excluding extraneous columns, and excluding instruments specific to&#13;
-Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV,&#13;
-Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude&#13;
-events listed with instrument "Other" that are pertinent to OOI-led&#13;
-cruises. We added a column project_id to indicate LTER-dedicated or&#13;
-partner cruises.&#13;
-&#13;
-# Quality Assurance&#13;
-&#13;
-We assured that the geographic and temporal coverage of the concatenated&#13;
-data product were within expected ranges. For corrections made or still&#13;
-needed for the NES-LTER REST API product, see README per-cruise with the&#13;
-following URL pattern, using cruise en627 as example:&#13;
-https://nes-lter-data.whoi.edu/api/events/en627/README. We did not yet&#13;
-regularize the names of LTER-specific instruments, for example "Bongo"&#13;
-and "Bongo net" are equivalent. For cruises prior to ar28a in spring&#13;
-2018, we had not yet established controlled vocabulary terms related to&#13;
-IFCB, nor had we distinguished the instrument "IFCB continuous" from&#13;
-underway science seawater with action "IFCB discrete". For cruises&#13;
-en608, ar28b, and ar31c, the instrument IFCB refers to IFCB continuous.&#13;
-For cruises ar24a and ar24c, the instrument IFCB109 represents IFCB&#13;
-continuous, and the instrument IFCB102 represents an IFCB analyzing&#13;
-discrete samples.&#13;
-</markdown>
+          <markdown># Original event logs
+
+Events were recorded onboard with Rolling Deck to Repository (R2R) event
+logger (elog) software described at:
+https://www.rvdata.us/about/event-log. Prior to each cruise an NES-LTER
+Information Manager works with shipboard technicians and the R2R elog
+software team to configure the elog with instruments and actions from a
+controlled vocabulary. The event log is started when the ship leaves
+port and concluded upon arrival. During the cruise, events are added
+manually by shipboard technicians and science party. Contents of the
+event log are reviewed regularly by an on-board Information Manager
+during a cruise to ensure completeness and accuracy. The elog is often
+available online during the cruise so that an on-shore Information
+Manager can review contents as well. The original event logs (elogs) are
+available per cruise in R2R with Public Domain Mark 1.0 license:
+https://www.rvdata.us/data.
+
+# Event listings output by NES-LTER REST API
+
+NES-LTER maintains a RESTful Application Programming Interface (REST
+API) to provide a set of consistent URLs that, when fetched, returns
+data in machine-readable form that may be used by application code. For
+the events product provided by the NES-LTER REST API, a subset of
+columns is retained from the original elogs, including date, time,
+ship's position, instrument, and action (parsing code available at:
+https://github.com/WHOIGit/nes-lter-ims/blob/master/neslter/parsing/elog.py).
+For some but not all cruises we corrected and/or added events. Blanks
+are retained (not filled with missing value code) in the station, cast,
+and comment columns. Event logs are available per-cruise with the
+following URL pattern, using cruise en627 as example:
+https://nes-lter-data.whoi.edu/api/events/en627.csv.
+
+# Data assembly
+
+The concatenated data product is built from event logs output by the
+NES-LTER REST API (https://github.com/WHOIGit/nes-lter-ims/wiki/Using-REST-API-to-access-NES-LTER-data). 
+Event logs are concatenated and standardized in the 
+data package assembly R markdown script (available at 
+https://github.com/WHOIGit/nes-lter-events-transect).
+Cleaning of the concatenated table included formatting datetime,
+excluding extraneous columns, and excluding instruments specific to
+Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV,
+Glider, Kraken ROV, REMUS, Slocum Glider, USBL). However,
+events listed with instrument "Other" that are pertinent to OOI-led
+cruises are included. We added a column project_id to indicate LTER-dedicated or
+partner cruises. We standardized instrument names across all events 
+to enable streamlined searching across all cruises. We also regularized 
+vocabulary used for underway science seawater, including actions for 
+those events.
+
+# Quality Assurance
+
+We assured that the geographic and temporal coverage of the concatenated
+data product were within expected ranges. For corrections made or still
+needed for the NES-LTER REST API product, see README per-cruise with the
+following URL pattern, using cruise en627 as example:
+https://nes-lter-data.whoi.edu/api/events/en627/README. 
+
+# Differences from previous version
+
+Previously,a separate python script was used to acquire all available elogs from the REST API and
+concatenate into a csv file that was then regularized in the 
+data package assembly R markdown script. In this version, all available elogs are concatenated in the data package assembly itself.
+
+Also in this version, instrument names were standardized, along with the vocabulary used for underway science seawater. </markdown>
         </description>
       </methodStep>
     </methods>
@@ -343,8 +349,8 @@ discrete samples.&#13;
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">603066</size>
-        <authentication method="MD5">e058990cbb7c7c47be0276c059bb4f2a</authentication>
+        <size unit="bytes">645624</size>
+        <authentication method="MD5">10188d015c07386c5ea310b07bb1a9aa</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -384,7 +390,7 @@ discrete samples.&#13;
                 <numberType>natural</numberType>
                 <bounds>
                   <minimum exclusive="false">1</minimum>
-                  <maximum exclusive="false">286</maximum>
+                  <maximum exclusive="false">289</maximum>
                 </bounds>
               </numericDomain>
             </ratio>
@@ -477,7 +483,7 @@ discrete samples.&#13;
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">35.724</minimum>
+                  <minimum exclusive="false">35.721</minimum>
                   <maximum exclusive="false">41.612</maximum>
                 </bounds>
               </numericDomain>
@@ -500,7 +506,7 @@ discrete samples.&#13;
               <numericDomain>
                 <numberType>real</numberType>
                 <bounds>
-                  <minimum exclusive="false">-75.337</minimum>
+                  <minimum exclusive="false">-75.341</minimum>
                   <maximum exclusive="false">-70.218</maximum>
                 </bounds>
               </numericDomain>
@@ -559,14 +565,14 @@ discrete samples.&#13;
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>6010</numberOfRecords>
+      <numberOfRecords>6497</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>
     <metadata>
       <emlEditor>
         <app>EMLassemblyline</app>
-        <release>3.5.5</release>
+        <release>3.5.7</release>
       </emlEditor>
     </metadata>
   </additionalMetadata>

@@ -6,7 +6,7 @@ https://www.rvdata.us/about/event-log. Prior to each cruise an NES-LTER
 Information Manager works with shipboard technicians and the R2R elog
 software team to configure the elog with instruments and actions from a
 controlled vocabulary. The event log is started when the ship leaves
-port, and concluded upon arrival. During the cruise events are added
+port and concluded upon arrival. During the cruise, events are added
 manually by shipboard technicians and science party. Contents of the
 event log are reviewed regularly by an on-board Information Manager
 during a cruise to ensure completeness and accuracy. The elog is often
@@ -33,20 +33,20 @@ https://nes-lter-data.whoi.edu/api/events/en627.csv.
 # Data assembly
 
 The concatenated data product is built from event logs output by the
-NES-LTER REST API. In this version of the data package, we used a
-script in Python to acquire all available elogs from the REST API and
-concatenate into a file "nes_lter_events_raw.csv" that is used in the
-data assembly script in R (file and code available at:
-https://github.com/WHOIGit/nes-lter-events-transect). In subsequent
-versions of this data package, we acquire all available elogs in R using
-the REST API end point, https://nes-lter-data.whoi.edu/api/events.
+NES-LTER REST API (https://github.com/WHOIGit/nes-lter-ims/wiki/Using-REST-API-to-access-NES-LTER-data). 
+Event logs are concatenated and standardized in the 
+data package assembly R markdown script (available at 
+https://github.com/WHOIGit/nes-lter-events-transect).
 Cleaning of the concatenated table included formatting datetime,
 excluding extraneous columns, and excluding instruments specific to
 Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV,
-Glider, Kraken ROV, REMUS, Slocum Glider, USBL). We did not exclude
+Glider, Kraken ROV, REMUS, Slocum Glider, USBL). However,
 events listed with instrument "Other" that are pertinent to OOI-led
-cruises. We added a column project_id to indicate LTER-dedicated or
-partner cruises. We standardized of instrument namess across all events to enable streamlines searching across all cruises. We also regularized vocabulary used for underway science seawater, including actions for those events.
+cruises are included. We added a column project_id to indicate LTER-dedicated or
+partner cruises. We standardized instrument names across all events 
+to enable streamlined searching across all cruises. We also regularized 
+vocabulary used for underway science seawater, including actions for 
+those events.
 
 # Quality Assurance
 
@@ -55,3 +55,11 @@ data product were within expected ranges. For corrections made or still
 needed for the NES-LTER REST API product, see README per-cruise with the
 following URL pattern, using cruise en627 as example:
 https://nes-lter-data.whoi.edu/api/events/en627/README. 
+
+# Differences from previous version
+
+Previously,a separate python script was used to acquire all available elogs from the REST API and
+concatenate into a csv file that was then regularized in the 
+data package assembly R markdown script. In this version, all available elogs are concatenated in the data package assembly itself.
+
+Also in this version, instrument names were standardized, along with the vocabulary used for underway science seawater. 
