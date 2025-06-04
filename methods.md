@@ -58,8 +58,8 @@ https://nes-lter-data.whoi.edu/api/events/en627/README.
 
 # Differences from previous version
 
-Previously,a separate python script was used to acquire all available elogs from the REST API and
-concatenate into a csv file that was then regularized in the 
-data package assembly R markdown script. In this version, all available elogs are concatenated in the data package assembly itself.
+For version 2, instrument names were standardized, along with the vocabulary used for underway science seawater. Date-time format was updated from "YYYY-MM-DD hh:mm:ss" to "YYYY-MM-DDThh:mm:ssZ". 
 
-Also in this version, instrument names were standardized, along with the vocabulary used for underway science seawater. 
+Previously, a separate python script was used to acquire all available elogs from the REST API and
+concatenate into a csv file that was then regularized in the 
+data package assembly R markdown script. In version 2, all available elogs are concatenated in the data package assembly itself.

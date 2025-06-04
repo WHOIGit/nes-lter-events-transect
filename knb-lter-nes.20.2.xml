@@ -48,15 +48,6 @@
     </associatedParty>
     <associatedParty>
       <individualName>
-        <givenName>NES-LTER</givenName>
-        <surName>Information Manager</surName>
-      </individualName>
-      <organizationName>Northeast U.S. Shelf LTER</organizationName>
-      <electronicMailAddress>lter-nes-info@whoi.edu</electronicMailAddress>
-      <role>metadataProvider</role>
-    </associatedParty>
-    <associatedParty>
-      <individualName>
         <givenName>Joanne</givenName>
         <surName>Koch</surName>
       </individualName>
@@ -64,17 +55,15 @@
       <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2025-05-21</pubDate>
+    <pubDate>2025-06-04</pubDate>
     <abstract>
       <para>This package provides a concatenated table of events recorded on
 seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological
-Research (NES-LTER). Events were recorded onboard with Rolling Deck to
+Research (NES-LTER) and other opportunistic cruises within the transect region. Events were recorded onboard with Rolling Deck to
 Repository (R2R) event logger (elog) software. Event listings include
 date, time, ship's position, instrument, and action for use in physical
-sample cataloging and post-cruise data integration. Cruises are seasonal and include
-voyages dedicated to NES-LTER, spring and fall cruises through 2021
-in collaboration with the Ocean Observatories Initiative (OOI), and
-additional fall cruises.
+sample cataloging and post-cruise data integration. Cruises are seasonal and include NES-LTER dedicated voyages, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and
+additional opportunistic cruises.
 </para>
     </abstract>
     <keywordSet>
@@ -194,11 +183,12 @@ https://nes-lter-data.whoi.edu/api/events/en627/README.
 
 # Differences from previous version
 
-Previously,a separate python script was used to acquire all available elogs from the REST API and
-concatenate into a csv file that was then regularized in the 
-data package assembly R markdown script. In this version, all available elogs are concatenated in the data package assembly itself.
+For version 2, instrument names were standardized, along with the vocabulary used for underway science seawater. Date-time format was updated from "YYYY-MM-DD hh:mm:ss" to "YYYY-MM-DDThh:mm:ssZ". 
 
-Also in this version, instrument names were standardized, along with the vocabulary used for underway science seawater. </markdown>
+Previously, a separate python script was used to acquire all available elogs from the REST API and
+concatenate into a csv file that was then regularized in the 
+data package assembly R markdown script. In version 2, all available elogs are concatenated in the data package assembly itself.
+</markdown>
         </description>
       </methodStep>
     </methods>
@@ -349,8 +339,8 @@ Also in this version, instrument names were standardized, along with the vocabul
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">645624</size>
-        <authentication method="MD5">10188d015c07386c5ea310b07bb1a9aa</authentication>
+        <size unit="bytes">688309</size>
+        <authentication method="MD5">facdec5d4bed54438f41225f02424fb6</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
@@ -406,7 +396,7 @@ Also in this version, instrument names were standardized, along with the vocabul
           <storageType>date</storageType>
           <measurementScale>
             <dateTime>
-              <formatString>YYYY-MM-DD hh:mm:ss</formatString>
+              <formatString>YYYY-MM-DDThh:mm:ssZ</formatString>
               <dateTimeDomain/>
             </dateTime>
           </measurementScale>
@@ -565,7 +555,7 @@ Also in this version, instrument names were standardized, along with the vocabul
           </missingValueCode>
         </attribute>
       </attributeList>
-      <numberOfRecords>6497</numberOfRecords>
+      <numberOfRecords>6593</numberOfRecords>
     </dataTable>
   </dataset>
   <additionalMetadata>

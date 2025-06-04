@@ -1,7 +1,7 @@
 ---
 title: "NES-LTER compiled event log packaging workflow"
-author: "Joe Futrelle"
-date: "2022-06-14"
+author: "Joe Futrelle, Joanne Koch, Kate Morkeski"
+date: "2025-06-04"
 output: html_notebook
 ---
 
@@ -20,6 +20,7 @@ library(lubridate)
 library(stringr)
 library(dplyr)
 library(readr)
+library(data.table)
 
 base_api_url <- 'https://nes-lter-data.whoi.edu/api/events/'
 ```
@@ -53,9 +54,15 @@ for(cruise_id in cruise_list) {
     }
   }
 }
+```
+
+```{r}
 
 data_table = all_events
-data_table$dateTime8601 <- ymd_hms(data_table$dateTime8601)
+#all_events$dateTime8601 <- ymd_hms(all_events$dateTime8601)
+#data_table$dateTime8601 <- ymd_hms(data_table$dateTime8601)
+#data_table$dateTime8601 <- as.POSIXct(data_table$dateTime8601, format = "%Y/%d/%m %H:%M:%S", TZ ="UTC")
+#data_table$dateTime8601 <- as.character(data_table$dateTime8601)
 data_table <- data_table %>% arrange(dateTime8601)
 data_table$Cast <- str_replace(data_table$Cast,'\\.0','')
 data_table <- data_table %>% select(-c('Unnamed: 8', 'Unnamed: 9', 'Unnamed: 10', 'Unnamed: 11', 'Unnamed: 12', 'Unnamed: 13'))
@@ -78,8 +85,8 @@ data_table$Station[is.na(data_table$Station)] <- ""
 data_table$Cast[is.na(data_table$Cast)] <- ""
 data_table$Comment[is.na(data_table$Comment)] <- ""
 data_table$Message.ID[is.na(data_table$Message.ID)] <- "NaN"
-data_table$dateTime8601 <- as.character(data_table$dateTime8601)
-data_table$dateTime8601[is.na(data_table$dateTime8601)] <- ""
+#data_table$dateTime8601 <- as.character(data_table$dateTime8601)
+#data_table$dateTime8601[is.na(data_table$dateTime8601)] <- ""
 data_table$Latitude[is.na(data_table$Latitude)] <- "NaN"
 data_table$Longitude[is.na(data_table$Longitude)] <- "NaN"
 
@@ -137,9 +144,15 @@ data_table <- data_table %>%
 mutate(Instrument = ifelse(Cruise == "ar28a" & Instrument == "IFCB 102", 
                              "IFCB continuous", Instrument))
 
+# remove columns that are out put for only some cruises
+data_table <- data_table |> select(Cruise, Message.ID, dateTime8601, Instrument, Action, Station, Cast, Latitude, Longitude, Comment, project_id)
+
 product_table_filename <- paste0(package_name, '.csv')
 
-write.table(data_table, here(product_table_filename), row.names = FALSE, sep = ",", qmethod = "escape", quote = FALSE)
+# use this method of writing data table to allow midnight timestamps to be printed
+fwrite(data_table, file = product_table_filename, dateTimeAs = "ISO")
+
+#write.table(data_table, here(product_table_filename), row.names = FALSE, sep = ",", qmethod = "escape", quote = FALSE)
 ```
 
 Read the Excel metadata template and generate text templates used by
