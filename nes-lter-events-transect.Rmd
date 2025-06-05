@@ -1,7 +1,7 @@
 ---
 title: "NES-LTER compiled event log packaging workflow"
 author: "Joe Futrelle, Joanne Koch, Kate Morkeski"
-date: "2025-06-04"
+date: "2025-06-05"
 output: html_notebook
 ---
 
@@ -93,7 +93,9 @@ data_table$Longitude[is.na(data_table$Longitude)] <- "NaN"
 # Regularize Instrument names
 data_table$Instrument[data_table$Instrument == "Bongo"] <- "Bongo Net"
 data_table$Instrument[data_table$Instrument == "Attune"] <- "Attune Flow Cytometer"
-data_table$Instrument[data_table$Instrument == "Cytomeoter"] <- "Cytometer"
+data_table$Instrument[data_table$Instrument == "Attune Flow Cytomoeter"] <- "Attune Flow Cytometer"
+data_table$Instrument[data_table$Instrument == "Issacs Kidd Midwater Trawl"] <- "Isaacs-Kidd Midwater Trawl"
+data_table$Instrument[data_table$Instrument == "Stingray"] <- "Sting Ray"
 data_table$Instrument[data_table$Instrument == "EK80"] <- "EK80 broadband"
 data_table$Instrument[data_table$Instrument == "Incubation"] <- "Incubation Grazing"
 data_table$Instrument[data_table$Instrument == "Incubation O2"] <- "Incubation Respiration O2"

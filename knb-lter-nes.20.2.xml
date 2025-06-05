@@ -55,14 +55,12 @@
       <electronicMailAddress>jkoch@whoi.edu</electronicMailAddress>
       <role>softwareDeveloper</role>
     </associatedParty>
-    <pubDate>2025-06-04</pubDate>
+    <pubDate>2025-06-05</pubDate>
     <abstract>
       <para>This package provides a concatenated table of events recorded on
 seasonal Transect cruises for Northeast U.S. Shelf Long-Term Ecological
 Research (NES-LTER) and other opportunistic cruises within the transect region. Events were recorded onboard with Rolling Deck to
-Repository (R2R) event logger (elog) software. Event listings include
-date, time, ship's position, instrument, and action for use in physical
-sample cataloging and post-cruise data integration. Cruises are seasonal and include NES-LTER dedicated voyages, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and
+Repository (R2R) event logger (elog) software. Event listings include date, time, ship's position, instrument, and action for over the side operations, underway data collection, and other miscellaneous events during the cruise. The event log is used post-cruise in physical sample cataloging and data integration. Cruises are seasonal and include NES-LTER dedicated voyages, spring and fall cruises in collaboration with the Ocean Observatories Initiative (OOI), and
 additional opportunistic cruises.
 </para>
     </abstract>
@@ -339,8 +337,8 @@ data package assembly R markdown script. In version 2, all available elogs are c
       <entityDescription>Concatenated table of events recorded on seasonal NES-LTER Transect cruises</entityDescription>
       <physical>
         <objectName>nes-lter-events-transect.csv</objectName>
-        <size unit="bytes">688309</size>
-        <authentication method="MD5">facdec5d4bed54438f41225f02424fb6</authentication>
+        <size unit="bytes">688317</size>
+        <authentication method="MD5">e1a6a368ccdb839ce23cc578dbaddda2</authentication>
         <dataFormat>
           <textFormat>
             <numHeaderLines>1</numHeaderLines>
