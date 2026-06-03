@@ -1,0 +1,2 @@
+default:
+  base_api_url: "https://nes-lter-api.whoi.edu/api/"

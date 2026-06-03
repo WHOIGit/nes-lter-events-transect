@@ -22,21 +22,26 @@ library(dplyr)
 library(readr)
 library(data.table)
 
-base_api_url <- 'https://nes-lter-data.whoi.edu/api/events/'
+base_api_url <- config::get("base_api_url")   # set in local config.yml
 ```
 
 Construct and clean raw data table
 
 ```{r}
 package_name = 'nes-lter-events-transect'
-cruise_list <- api_list_cruises()
 all_events <- NA
-print(cruise_list)
+all_cruises <- NA
 
-for(cruise_id in cruise_list) {
+cruises_url <- glue::glue('{base_api_url}ctd/cruises/all.csv')
+
+all_cruises <- tryCatch(read_csv(cruises_url), 
+                 error=function(cond) 
+                     { message(cond)
+                       return(NULL) })
+
+for (cruise_id in all_cruises$name) {
   cruise_id <- str_to_lower(cruise_id)
-  url <- glue::glue('{base_api_url}{cruise_id}.csv')
-  print(url)
+  url <- glue::glue('{base_api_url}events/{cruise_id}.csv')
 
   event <- tryCatch(read_csv(url), 
                  error=function(cond) 
@@ -59,13 +64,8 @@ for(cruise_id in cruise_list) {
 ```{r}
 
 data_table = all_events
-#all_events$dateTime8601 <- ymd_hms(all_events$dateTime8601)
-#data_table$dateTime8601 <- ymd_hms(data_table$dateTime8601)
-#data_table$dateTime8601 <- as.POSIXct(data_table$dateTime8601, format = "%Y/%d/%m %H:%M:%S", TZ ="UTC")
-#data_table$dateTime8601 <- as.character(data_table$dateTime8601)
 data_table <- data_table %>% arrange(dateTime8601)
 data_table$Cast <- str_replace(data_table$Cast,'\\.0','')
-data_table <- data_table %>% select(-c('Unnamed: 8', 'Unnamed: 9', 'Unnamed: 10', 'Unnamed: 11', 'Unnamed: 12', 'Unnamed: 13'))
 
 data_table$Station <- str_replace(data_table$Station, 'Cast*\\n[0-9]+    ', '')
 data_table$Station <- str_replace(data_table$Station, '\\n.*', '')
@@ -74,8 +74,16 @@ data_table <- data_table %>% rename(Message.ID = `Message ID`)
 data_table$Comment <- str_replace_all(data_table$Comment, ',', ';')
 
 # add project_id column
-cpid <- read.csv(here('cruise_project_id.csv'))
-data_table <- data_table %>% left_join(cpid, by = "Cruise")
+#cpid <- read.csv(here('cruise_project_id.csv'))
+#data_table <- data_table %>% left_join(cpid, by = "Cruise")
+
+data_table <- data_table %>%
+  left_join(
+    all_cruises %>%
+      mutate(name = tolower(name)) %>%
+      select(name, project_id = type),
+    by = c("Cruise" = "name")
+  )
 
 # exclude OOI instruments
 ooi_instruments <- str_split('CPM, CSM, Falcon ROV, Glider, Kraken ROV, REMUS, Slocum Glider, USBL', ', ')[[1]]
@@ -89,30 +97,6 @@ data_table$Message.ID[is.na(data_table$Message.ID)] <- "NaN"
 #data_table$dateTime8601[is.na(data_table$dateTime8601)] <- ""
 data_table$Latitude[is.na(data_table$Latitude)] <- "NaN"
 data_table$Longitude[is.na(data_table$Longitude)] <- "NaN"
-
-# Regularize Instrument names
-data_table$Instrument[data_table$Instrument == "Bongo"] <- "Bongo Net"
-data_table$Instrument[data_table$Instrument == "Attune"] <- "Attune Flow Cytometer"
-data_table$Instrument[data_table$Instrument == "Attune Flow Cytomoeter"] <- "Attune Flow Cytometer"
-data_table$Instrument[data_table$Instrument == "Issacs Kidd Midwater Trawl"] <- "Isaacs-Kidd Midwater Trawl"
-data_table$Instrument[data_table$Instrument == "Stingray"] <- "Sting Ray"
-data_table$Instrument[data_table$Instrument == "EK80"] <- "EK80 broadband"
-data_table$Instrument[data_table$Instrument == "Incubation"] <- "Incubation Grazing"
-data_table$Instrument[data_table$Instrument == "Incubation O2"] <- "Incubation Respiration O2"
-data_table$Instrument[data_table$Instrument == "RingNet"] <- "Ring Net"
-data_table$Instrument[data_table$Instrument == "SUNA V2"] <- "SUNAV2"
-data_table$Instrument[data_table$Instrument == "Thermosalinograph SBE45"] <- "Thermosalinographs on underway impeller "
-data_table$Instrument[data_table$Instrument == "trans10"] <- "Transmissometer 10cm"
-data_table$Instrument[data_table$Instrument == "Transmissometer 10"] <- "Transmissometer 10cm"
-data_table$Instrument[data_table$Instrument == "trans25"] <- "Transmissometer 25cm"
-data_table$Instrument[data_table$Instrument == "Underway diaphram pump"] <- "Underway Science seawater diaphragm pump"
-data_table$Instrument[data_table$Instrument == "Underway Science Seawater Diaphragm Pump"] <- "Underway Science seawater diaphragm pump"
-data_table$Instrument[data_table$Instrument == "SSW"] <- "Underway Science seawater diaphragm pump"
-data_table$Instrument[data_table$Instrument == "Underway Impeller"] <- "Underway Science seawater impeller"
-data_table$Instrument[data_table$Instrument == "IFCB_continuous"] <- "IFCB continuous"
-data_table$Instrument[data_table$Instrument == "RingNetIFCB Continuous"] <- "IFCB continuous"
-data_table$Instrument[data_table$Instrument == "IFCB Continuous"] <- "IFCB continuous"
-data_table$Instrument[data_table$Instrument == "IFCB 109"] <- "IFCB continuous"
 
 # Fix IFCB 102 entries
 # ar24b - remove all of IFCB102 except the action of bucket
@@ -146,7 +130,7 @@ data_table <- data_table %>%
 mutate(Instrument = ifelse(Cruise == "ar28a" & Instrument == "IFCB 102", 
                              "IFCB continuous", Instrument))
 
-# remove columns that are out put for only some cruises
+# remove columns that are output for only some cruises
 data_table <- data_table |> select(Cruise, Message.ID, dateTime8601, Instrument, Action, Station, Cast, Latitude, Longitude, Comment, project_id)
 
 product_table_filename <- paste0(package_name, '.csv')
@@ -175,7 +159,7 @@ west <- round(min(lon, na.rm = TRUE), 5)
 Generate the package and insert the parent project node into the resulting EML
 
 ```{r}
-pkg_id <- 'knb-lter-nes.20.2'
+pkg_id <- 'knb-lter-nes.20.3'
 
 make_eml(here(),
          dataset.title='Event logs from Northeast U.S. Shelf Long Term Ecological Research (NES-LTER) Transect cruises, ongoing since 2017',
