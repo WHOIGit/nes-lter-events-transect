@@ -28,14 +28,14 @@ For some but not all cruises we corrected and/or added events. Blanks
 are retained (not filled with missing value code) in the station, cast,
 and comment columns. Event logs are available per-cruise with the
 following URL pattern, using cruise en627 as example:
-https://nes-lter-data.whoi.edu/api/events/en627.csv.
+https://nes-lter-api.whoi.edu/api/events/en627.csv.
 
 # Data assembly
 
 The concatenated data product is built from event logs output by the
-NES-LTER REST API (https://github.com/WHOIGit/nes-lter-ims/wiki/Using-REST-API-to-access-NES-LTER-data). 
-Event logs are concatenated and standardized in the 
-data package assembly R markdown script (available at 
+NES-LTER REST API (https://github.com/WHOIGit/nes-lter-api-2/wiki).
+Event logs are concatenated and standardized in the
+data package assembly R markdown script (available at
 https://github.com/WHOIGit/nes-lter-events-transect).
 Cleaning of the concatenated table included formatting datetime,
 excluding extraneous columns, and excluding instruments specific to
@@ -43,9 +43,9 @@ Ocean Observatories Initiative (OOI)-led cruises (CPM, CSM, Falcon ROV,
 Glider, Kraken ROV, REMUS, Slocum Glider, USBL). However,
 events listed with instrument "Other" that are pertinent to OOI-led
 cruises are included. We added a column project_id to indicate LTER-dedicated or
-partner cruises. We standardized instrument names across all events 
-to enable streamlined searching across all cruises. We also regularized 
-vocabulary used for underway science seawater, including actions for 
+partner cruises. We standardized instrument names across all events
+to enable streamlined searching across all cruises. We also regularized
+vocabulary used for underway science seawater, including actions for
 those events.
 
 # Quality Assurance
@@ -54,12 +54,8 @@ We assured that the geographic and temporal coverage of the concatenated
 data product were within expected ranges. For corrections made or still
 needed for the NES-LTER REST API product, see README per-cruise with the
 following URL pattern, using cruise en627 as example:
-https://nes-lter-data.whoi.edu/api/events/en627/README. 
+https://nes-lter-api.whoi.edu/api/events/readme/en627.
 
 # Differences from previous version
 
-For version 2, instrument names were standardized, along with the vocabulary used for underway science seawater. Date-time format was updated from "YYYY-MM-DD hh:mm:ss" to "YYYY-MM-DDThh:mm:ssZ". 
-
-Previously, a separate python script was used to acquire all available elogs from the REST API and
-concatenate into a csv file that was then regularized in the 
-data package assembly R markdown script. In version 2, all available elogs are concatenated in the data package assembly itself.
+For version 3, 13 new cruises were added between the period Jan 2025 and May 2026.
