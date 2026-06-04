@@ -64,7 +64,16 @@ for (cruise_id in all_cruises$name) {
 ```{r}
 
 data_table = all_events
-data_table <- data_table %>% arrange(dateTime8601)
+
+# Group by cruise and order the cruise blocks by each cruise's earliest
+# timestamp, keeping events within a cruise in time order. This de-interleaves
+# cruises that overlap in the raw, time-sorted feed.
+data_table <- data_table %>%
+  group_by(Cruise) %>%
+  mutate(.cruise_min = min(dateTime8601, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(.cruise_min, Cruise, dateTime8601) %>%
+  select(-.cruise_min)
 data_table$Cast <- str_replace(data_table$Cast,'\\.0','')
 
 data_table$Station <- str_replace(data_table$Station, 'Cast*\\n[0-9]+    ', '')
